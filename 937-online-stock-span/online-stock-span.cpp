@@ -1,21 +1,21 @@
 class StockSpanner {
 public:
-    vector<int> arr;
-    int top;
+    stack<pair<int, int>> arr;
     StockSpanner() {
-        top = -1;
+        ios_base::sync_with_stdio(false);
+        cin.tie(nullptr);
+        cout.tie(nullptr);
     }
     
     int next(int price) {
-        int i = top, cnt = 1;
-        while(i >= 0 && arr[i] <= price)
+        int cnt = 1;
+        while(!arr.empty() && arr.top().first <= price)
         {
-            cnt++;
-            i--;
+            cnt += arr.top().second;
+            arr.pop();
         }
 
-        arr.push_back(price);
-        top++;
+        arr.push({price, cnt});
         return cnt;
     }
 };
